@@ -127,8 +127,14 @@ model:
 ## Roadmap
 
 - [x] Synthetic data generation
-- [ ] Preprocessing pipeline
+- [x] Preprocessing pipeline
 - [ ] GeometricCNN training
 - [ ] Transfer learning (ResNet-18)
 - [ ] Vision Transformer (ViT) comparison
 - [ ] Streamlit demo
+
+---
+
+## Note
+
+This project was also used to test [Claude Code](https://claude.ai/claude-code) — Anthropic's CLI — and its session configuration via `CLAUDE.md`.
