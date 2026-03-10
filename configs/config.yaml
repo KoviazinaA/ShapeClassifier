@@ -1,0 +1,28 @@
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  splits_dir: data/splits
+  img_size: 64
+  n_samples_per_class: 1000
+  noise_std: 10.0
+  seed: 42
+
+model:
+  type: cnn          # "cnn" | "pretrained"
+  backbone: resnet18 # used only when type == "pretrained"
+  freeze_backbone: true
+  num_classes: 2
+
+training:
+  epochs: 30
+  batch_size: 32
+  num_workers: 4
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 5        # early stopping patience (epochs)
+  checkpoint_dir: checkpoints
+
+augmentation:
+  enabled: true
+  horizontal_flip: true
+  color_jitter: true

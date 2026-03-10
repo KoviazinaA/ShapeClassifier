@@ -1,0 +1,30 @@
+## Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+
+## Data — keep folder structure, ignore actual files
+data/raw/*
+data/processed/*
+data/splits/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/splits/.gitkeep
+
+## Checkpoints & logs
+checkpoints/
+*.pt
+*.pth
+runs/
+
+## Jupyter
+.ipynb_checkpoints/
+
+## OS
+.DS_Store
+Thumbs.db
