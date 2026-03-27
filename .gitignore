@@ -22,6 +22,9 @@ checkpoints/
 *.pth
 runs/
 
+## Generated reports
+reports/
+
 ## Jupyter
 .ipynb_checkpoints/
 

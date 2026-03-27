@@ -1,6 +1,8 @@
 # ShapeClassifier
 
-A end-to-end image classification pipeline that distinguishes **triangles** from **circles** using a custom CNN and optional transfer learning.
+> **Learning project** — This project was mainly constructed in order to learn how to use [Claude Code](https://claude.ai/claude-code) (Anthropic's CLI) and [AI-DLC](https://github.com/ai-dlc), an AI-driven development lifecycle framework. The pipeline itself is a genuine end-to-end ML project and is presented here as a portfolio piece.
+
+An end-to-end image classification pipeline that distinguishes **triangles** from **circles** using a custom CNN.
 The dataset is fully synthetic — generated with `matplotlib` — making the project self-contained and 100 % reproducible.
 
 ---
@@ -12,8 +14,7 @@ This project demonstrates a complete ML workflow on image data:
 - Synthetic dataset generation with controlled variation
 - Image preprocessing and train / val / test splitting
 - Custom CNN architecture built with PyTorch
-- Transfer learning with a frozen pretrained backbone (ResNet-18)
-- Evaluation: accuracy, F1-score, confusion matrix
+- Evaluation: accuracy, F1-score, confusion matrix, per-class sample grid
 
 ---
 
@@ -36,15 +37,13 @@ ShapeClassifier/
 │   ├── raw/                 # Generated PNG images (triangle/, circle/)
 │   ├── processed/           # Resized & normalised images
 │   └── splits/              # train / val / test manifest CSVs
-├── notebooks/
-│   └── exploration.ipynb    # Visualisation & sanity-checks
 ├── src/
 │   ├── generate.py          # Synthetic image generation
 │   ├── preprocess.py        # Transforms, augmentation, dataset splitting
 │   ├── dataset.py           # PyTorch Dataset + DataLoader factory
-│   ├── model.py             # GeometricCNN and PretrainedClassifier
+│   ├── model.py             # GeometricCNN architecture
 │   ├── train.py             # Training loop with early stopping
-│   └── evaluate.py          # Metrics, confusion matrix, report
+│   └── evaluate.py          # Metrics, confusion matrix, sample grid
 ├── tests/
 │   ├── test_generate.py
 │   ├── test_preprocess.py
@@ -69,9 +68,9 @@ generate.py  →  preprocess.py  →  dataset.py  →  train.py  →  evaluate.p
 
 **3. Dataset** — `GeometricDataset` reads manifests and serves `(tensor, label)` pairs to PyTorch `DataLoader`.
 
-**4. Train** — configurable optimiser, LR scheduler, and early stopping; saves the best validation checkpoint.
+**4. Train** — configurable optimiser, LR scheduler (CosineAnnealing), and early stopping; saves the best validation checkpoint.
 
-**5. Evaluate** — loads the checkpoint, runs inference on the test split, prints a `sklearn` classification report, and plots a confusion matrix.
+**5. Evaluate** — loads the checkpoint, runs inference on the test split, prints a `sklearn` classification report, and saves a confusion matrix and per-class sample prediction grid.
 
 ---
 
@@ -96,31 +95,39 @@ python src/evaluate.py
 
 All hyper-parameters (image size, number of samples, learning rate, …) live in [`configs/config.yaml`](configs/config.yaml).
 
+### Running Tests
+
+```bash
+pytest tests/ -v
+```
+
 ---
 
-## Models
+## Model
 
 | Model | Description |
 |---|---|
-| `GeometricCNN` | Lightweight custom CNN — conv layers + max-pool + FC head |
-| `PretrainedClassifier` | Frozen ResNet-18 backbone with a custom classification head |
+| `GeometricCNN` | 3-block conv-BN-ReLU-MaxPool network + AdaptiveAvgPool + FC head |
 
-Switch between them in `configs/config.yaml`:
+The model type is selected in `configs/config.yaml`:
 ```yaml
 model:
-  type: cnn        # or "pretrained"
+  type: cnn
 ```
 
 ---
 
 ## Results
 
-> _To be filled in after training._
+> _Run the pipeline to populate this table._
 
 | Model | Test Accuracy | F1 (macro) |
 |---|---|---|
 | GeometricCNN | — | — |
-| ResNet-18 (frozen) | — | — |
+
+Output artefacts saved to `reports/`:
+- `confusion_matrix.png`
+- `sample_grid.png`
 
 ---
 
@@ -128,13 +135,8 @@ model:
 
 - [x] Synthetic data generation
 - [x] Preprocessing pipeline
-- [ ] GeometricCNN training
-- [ ] Transfer learning (ResNet-18)
-- [ ] Vision Transformer (ViT) comparison
-- [ ] Streamlit demo
-
----
-
-## Note
-
-This project was also used to test [Claude Code](https://claude.ai/claude-code) — Anthropic's CLI — and its session configuration via `CLAUDE.md`.
+- [x] PyTorch Dataset + DataLoader
+- [x] GeometricCNN architecture
+- [x] Training loop with early stopping
+- [x] Evaluation: classification report + confusion matrix + sample grid
+- [x] Unit tests
