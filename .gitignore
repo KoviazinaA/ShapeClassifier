@@ -25,6 +25,9 @@ runs/
 ## Generated reports
 reports/
 
+## AI-DLC workflow docs (local only)
+aidlc-docs/
+
 ## Jupyter
 .ipynb_checkpoints/
 

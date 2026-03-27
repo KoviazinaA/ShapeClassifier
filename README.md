@@ -1,6 +1,6 @@
 # ShapeClassifier
 
-> **Learning project** — This project was mainly constructed in order to learn how to use [Claude Code](https://claude.ai/claude-code) (Anthropic's CLI) and [AI-DLC](https://github.com/ai-dlc), an AI-driven development lifecycle framework. The pipeline itself is a genuine end-to-end ML project and is presented here as a portfolio piece.
+> **Learning project** — This project was mainly constructed in order to learn how to use [Claude Code](https://claude.ai/claude-code) (Anthropic's CLI) and AI-DLC, an AI-driven development lifecycle framework. The pipeline itself is a genuine end-to-end ML project and is presented here as a portfolio piece.
 
 An end-to-end image classification pipeline that distinguishes **triangles** from **circles** using a custom CNN.
 The dataset is fully synthetic — generated with `matplotlib` — making the project self-contained and 100 % reproducible.
@@ -119,15 +119,19 @@ model:
 
 ## Results
 
-> _Run the pipeline to populate this table._
-
 | Model | Test Accuracy | F1 (macro) |
 |---|---|---|
-| GeometricCNN | — | — |
+| GeometricCNN | **1.00** | **1.00** |
 
-Output artefacts saved to `reports/`:
-- `confusion_matrix.png`
-- `sample_grid.png`
+_Trained for 18 epochs (early stopping) on 1 400 images, validated on 300, tested on 300._
+
+### Confusion Matrix
+
+![Confusion Matrix](assets/confusion_matrix.png)
+
+### Per-class Sample Predictions
+
+![Sample Grid](assets/sample_grid.png)
 
 ---
 
